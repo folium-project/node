@@ -1,2 +1,2 @@
-# node
-REST and CRUD definitions for ES &amp; TypeScript
+# template-ts
+Template for TypeScript developed Projects
