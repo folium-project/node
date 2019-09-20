@@ -20,62 +20,50 @@ import {IReadCriteria as IFetchCriteria, IReadOptions as IFetchOptions} from '..
 
 export {IFetchCriteria, IFetchOptions}
 
+/**
+ * Interface for implementing REST Fetch method.
+ * @see https://en.wikipedia.org/wiki/Representational_state_transfer
+ */
 export interface Fetch {
+  /**
+   * If no field is passed, all resource fields should be presented to output.
+   * Read resource(s) from the database according to a set of criteria and based on a set of fields to be returned
+   *
+   * read([ [ 'id', '>', '10' ] ])
+   *
+   * or
+   *
+   * read(
+   *   [ [ 'id', '>', '10' ] ],
+   *   [ 'id', 'name', 'email' ]
+   * )
+   *
+   * or
+   *
+   * read([], [], [ '__count' => True ])
+   *
+   * @param {IFetchCriteria} criteria criteria to filter database data
+   * @param {string[]}       fields   list of fields to read, can be empty (will read al fields)
+   * @param {IFetchOptions}  options  options used by method:
+   *                                  `__count` - if True, will return count of resources in stead of list
+   * @returns {IModel[]|number}       array (or count) of resources matching the criteria (and having only the fields required)
+   */
   fetch(criteria: IFetchCriteria, fields: string[], options: IFetchOptions): IModel[] | number
 }
 
+/**
+ * Interface for implementing REST Fetch query.
+ */
 export interface FetchQuery {
+  /**
+   * Generate string query for `Fetch.fetch` method.
+   * @see Fetch.fetch
+   *
+   * @param {IFetchCriteria} criteria criteria to filter database data
+   * @param {string[]}       fields   list of fields to read, can be empty (will read al fields)
+   * @param {IFetchOptions}  options  options used by method:
+   *                                  `__count` - if True, will return count of resources in stead of list
+   * @returns {string}
+   */
   fetch(criteria: IFetchCriteria, fields: string[], options: IFetchOptions): string
 }
-
-// class Fetch(FetchBase):
-//     """
-//     Interface for implementing REST Fetch method.
-//     :see https://en.wikipedia.org/wiki/Representational_state_transfer
-//     """
-
-//     @abc.abstractmethod
-//     def fetch(self, criteria: list = [], fields: list = [], options: dict = {}):
-//         """
-//         If no field is passed, all resource fields should be presented to output.
-//         Read resource(s) from the database according to a set of criteria and based on a set of fields to be returned
-
-//         read([ [ 'id', '>', '10' ] ])
-
-//         or
-
-//         read(
-//           [ [ 'id', '>', '10' ] ],
-//           [ 'id', 'name', 'email' ]
-//         )
-
-//         or
-
-//         read([], [], [ '__count' => True ])
-
-//         :param criteria: list   (list of tuples) criteria to filter database data
-//         :param fields: list     list of fields to read, can be empty (will read al fields)
-//         :param options: dict    options used by method:
-//                                 __count - if True, will return count of resources in stead of list
-//         :return: list|int       array (or count) of resources matching the criteria (and having only the fields required)
-//         """
-//         pass
-
-// class FetchQuery(FetchBase):
-//     """
-//     Interface for implementing REST Fetch query.
-//     """
-
-//     @abc.abstractmethod
-//     def fetch(self, criteria: list = [], fields: list = [], options: dict = {}) -> str:
-//         """
-//         Generate string query for `Fetch.fetch` method.
-
-//         :see Fetch.fetch
-//         :param criteria: list   (list of tuples) criteria to filter database data
-//         :param fields: list     list of fields to read, can be empty (will read al fields)
-//         :param options: dict    options used by method:
-//                                 __count - if True, will return count of resources in stead of list
-//         :return: str
-//         """
-//         pass
