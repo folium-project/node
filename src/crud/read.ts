@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import {ICriteria, IOptions} from '../types'
 import {IModel} from '../model/model'
+import {IOptions} from '../types'
 
 export type IReadCriteria = Array<[string, any, any?]>
 
@@ -47,11 +47,12 @@ export interface IRead {
    *
    * read([], [], { __count: true })
    *
-   * @param {IReadCriteria} criteria  criteria to filter database data; Default: []
-   * @param {string[]}      fields    list of fields to read, can be empty (will read al fields); Default: []
-   * @param {IReadOptions}  options   options used by method:
-   *                                  `__count` - if true, will return count of resources in stead of list
-   * @returns {IModel[]|number}       array (or count) of resources matching the criteria (and having only the fields required)
+   * @param {IReadCriteria} criteria criteria to filter database data; Default: []
+   * @param {string[]}      fields   list of fields to read, can be empty (will read al fields); Default: []
+   * @param {IReadOptions}  options  options used by method:
+   *                                 `__count` - if true, will return count of resources in stead of list
+   * @returns {IModel[]|number}      array (or count) of resources matching the criteria (and having only the fields
+   *                                 required)
    */
   read(criteria: IReadCriteria, fields: string[], options: IReadOptions): IModel[] | number
 }

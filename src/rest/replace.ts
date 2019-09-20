@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-import {IOptions} from '../types'
 import {IModel, IModelStateID} from '../model/model'
-
+import {IOptions} from '../types'
 
 /**
  * Interface for implementing REST Replace method.
@@ -35,7 +34,7 @@ export interface IReplace {
    * @param {IOptions} options
    * @returns {IModelStateID}       will return the ids of the elements updated
    */
-  replace(items: IModel|IModel[], options: IOptions): IModelStateID[]
+  replace(items: IModel | IModel[], options: IOptions): IModelStateID[]
 }
 
 /**
@@ -50,8 +49,5 @@ export interface IReplaceQuery {
    * @param {IOptions} options
    * @returns {string}
    */
-  replace(items: IModel|IModel[], options: IOptions): string
+  replace(items: IModel | IModel[], options: IOptions): string
 }
-
-
-

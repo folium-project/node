@@ -17,7 +17,7 @@ export {
   IReadQuery,
   IUpdate,
   IUpdateCriteria,
-  IUpdateQuery
+  IUpdateQuery,
 }
 
 /**

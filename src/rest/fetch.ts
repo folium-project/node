@@ -14,9 +14,8 @@ import {IReadCriteria, IReadOptions} from './../crud/read'
  * limitations under the License.
  */
 
-import {ICriteria, IOptions} from '../types'
-import {IModel} from '../model/model'
 import {IReadCriteria as IFetchCriteria, IReadOptions as IFetchOptions} from '../crud/read'
+import {IModel} from '../model/model'
 
 export {IFetchCriteria, IFetchOptions}
 
@@ -24,7 +23,7 @@ export {IFetchCriteria, IFetchOptions}
  * Interface for implementing REST Fetch method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface Fetch {
+export interface IFetch {
   /**
    * If no field is passed, all resource fields should be presented to output.
    * Read resource(s) from the database according to a set of criteria and based on a set of fields to be returned
@@ -46,7 +45,8 @@ export interface Fetch {
    * @param {string[]}       fields   list of fields to read, can be empty (will read al fields)
    * @param {IFetchOptions}  options  options used by method:
    *                                  `__count` - if True, will return count of resources in stead of list
-   * @returns {IModel[]|number}       array (or count) of resources matching the criteria (and having only the fields required)
+   * @returns {IModel[]|number}       array (or count) of resources matching the criteria (and having only the fields
+   *                                  required)
    */
   fetch(criteria: IFetchCriteria, fields: string[], options: IFetchOptions): IModel[] | number
 }
@@ -54,7 +54,7 @@ export interface Fetch {
 /**
  * Interface for implementing REST Fetch query.
  */
-export interface FetchQuery {
+export interface IFetchQuery {
   /**
    * Generate string query for `Fetch.fetch` method.
    * @see Fetch.fetch

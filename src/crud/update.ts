@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import {IOptions} from '../types'
 import {IModel, IModelStateID} from '../model/model'
+import {IOptions} from '../types'
 import {IReadCriteria} from './read'
 
-export interface IUpdateCriteria extends IReadCriteria {}
+export type IUpdateCriteria = IReadCriteria
 
 /**
  * Interface for implementing CRUD Update (Modify) method.

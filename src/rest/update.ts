@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-import {IOptions, IStringAnyMap} from '../types'
 import {IModel, IModelStateID} from '../model/model'
+import {IOptions, IStringAnyMap} from '../types'
 
 /**
  * Interface for implementing REST Update (Patch) method.
@@ -32,7 +32,7 @@ export interface IUpdate {
    * @param {IOptions} options
    * @returns {IModel}                                resource data
    */
-  update(id: IModelStateID, items: IStringAnyMap|IStringAnyMap[], options: IOptions): IModel
+  update(id: IModelStateID, items: IStringAnyMap | IStringAnyMap[], options: IOptions): IModel
 }
 
 /**
@@ -48,5 +48,5 @@ export interface IUpdateQuery {
    * @param {IOptions} options
    * @returns {string}
    */
-  update(id: IModelStateID, items: IStringAnyMap|IStringAnyMap[], options: IOptions): string
+  update(id: IModelStateID, items: IStringAnyMap | IStringAnyMap[], options: IOptions): string
 }

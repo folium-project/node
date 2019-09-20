@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import {IOptions, IStringAnyMap} from '../types'
 import {IModel} from '../model/model'
+import {IOptions} from '../types'
 import {IReadCriteria} from './read'
 
-export interface IDeleteCriteria extends IReadCriteria {}
+export type IDeleteCriteria = IReadCriteria
 
 /**
  *
@@ -34,7 +34,8 @@ export interface IDeleteOptions extends IOptions {
 export interface IDelete {
   /**
    * Delete resource(s) from the database.
-   * When `items` is provided, the `criteria` argument will be ignored and will deleted only resources mentioned in `items`.
+   * When `items` is provided, the `criteria` argument will be ignored and will deleted only resources mentioned in
+   * `items`.
    * When `items` is null, the `criteria` argument will take charge, giving the change to delete resource by criteria.
    * If `items` is null and `criteria` is [] all stored resource are to be deleted.
    *

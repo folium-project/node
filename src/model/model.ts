@@ -12,13 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const uuidv4 = require('uuid/v4')
+
+import * as uuid from 'uuid'
 
 import {IStringAnyMap} from '../types'
 
 export type IModelStateID = string | number | null | undefined
 
-export interface IModelState {
+export interface IModelState extends IStringAnyMap {
   id?: IModelStateID
 }
 
@@ -28,16 +29,28 @@ export interface IModel {
   toString(): string
 }
 
-// export type IModels = IModel|IModel[]
+type IModelType<T> = new (...args: any[]) => T
 
 export class Model implements IModel {
-  private state: IModelState
+  public static fromObject<T>(state: IModelState, klass: IModelType<T>) {
+    // const instance = Object.create(klass.prototype)
+    // instance.state = state
+    // return instance as T;
+    return new klass(state) as T
+  }
 
-  constructor(state: IModelState) {
-    this.state = state
-    if (!this.state.id) {
-      this.state.id = uuidv4()
-    }
+  public static fromJson<T>(state: string, klass: IModelType<T>) {
+    return Model.fromObject(JSON.parse(state), klass)
+  }
+
+  public static fake(): Model {
+    return new Model({})
+  }
+
+  protected state: IModelState = {}
+
+  constructor(state: IModelState = {}) {
+    this.state = Object.assign(this.state, state || {})
   }
 
   get id(): IModelStateID {
@@ -57,22 +70,9 @@ export class Model implements IModel {
   }
 
   public toString(): string {
-    return `@Model\\${this.constructor.name}\\${this.id}`
+    if (this.constructor !== Model) {
+      return `@Folium\\Model\\${this.constructor.name}\\${this.id}`
+    }
+    return `@Folium\\Model\\${this.id}`
   }
-
-  // static fromObject<T extends Model>(state: IModelState, klass: T) {
-  // //   const instance = Object.create(klass.prototype)
-  // //   instance.state = state
-  // //   return instance
-  // }
-
-  //   static fromJson<Model>(klass: IModelConstructor<Model>, state: string) {
-  //     return Model.fromObject(klass, JSON.parse(state))
-  //   }
-
-  //   static fake(): Model {
-  //     return new Model({
-  //       id: uuid()
-  //     })
-  //   }
 }

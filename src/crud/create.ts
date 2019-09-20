@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import {IModelStateID, IModel} from '../model/model'
+import {IModel, IModelStateID} from '../model/model'
 import {IStringAnyMap} from '../types'
 
 /**
@@ -42,7 +42,8 @@ export interface ICreate {
    *
    * @param {IModel|IModel[]}   items     Can be a single element or an array of elements
    * @param {ICreateCriteria}   criteria  Default: {}
-   * @returns {IModelStateID[]}           Will return an array of ids for the models that have been saved in the database.
+   * @returns {IModelStateID[]}           Will return an array of ids for the models that have been saved in the
+   *                                      database.
    */
   create(items: IModel | IModel[], criteria: ICreateCriteria): IModelStateID[]
 }

@@ -14,9 +14,9 @@ import {IReadCriteria, IReadOptions} from './../crud/read'
  * limitations under the License.
  */
 
-import {IOptions} from '../types'
-import {IModel, IModelStateID} from '../model/model'
 import {IReadCriteria as IRetreiveCriteria, IReadOptions as IRetreiveOptions} from '../crud/read'
+import {IModel, IModelStateID} from '../model/model'
+import {IOptions} from '../types'
 
 export {IRetreiveCriteria, IRetreiveOptions}
 
@@ -60,6 +60,3 @@ export interface IRetreiveQuery {
    */
   retrieve(id: IModelStateID, fields: string[], options: IOptions): string
 }
-
-
-
