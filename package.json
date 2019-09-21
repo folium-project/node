@@ -12,8 +12,7 @@
     "prettier:write": "npm run prettier -- --write \"{src,test}/**/*.{ts,tsx}\"",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "test:html": "nyc --reporter html --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "-test": "mocha -r ts-node/register tests/**/*.test.ts",
-    "git-hook:pre-commit": "npm run prettier:write && npm run lint"
+    "git-hook:pre-commit": "npm run prettier:write && npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -37,10 +36,14 @@
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3",
-    "typings": "^2.1.1"
+    "typings": "^2.1.1",
+    "yorkie": "^2.0.0"
   },
   "types": "dist/index.d.ts",
   "dependencies": {
     "uuid": "^3.3.3"
+  },
+  "gitHooks": {
+    "pre-commit": "npm run git-hook:pre-commit && git add ."
   }
 }
