@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import {Model} from '../../src/model/model'
+import {Model} from '../../src/model'
 
 describe('testing Model implementation', () => {
   it('constructor() should return an object', () => {

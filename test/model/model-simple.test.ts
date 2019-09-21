@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import {IModelState, Model, IModel} from '../../src/model/model'
+import {IModelState, Model, IModel} from '../../src/model'
 import uuid = require('uuid')
 
 interface ISimpleModelState extends IModelState {

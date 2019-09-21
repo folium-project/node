@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Copyright 2018 IT Media Connect
  *
@@ -12,5 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-export {IDelete, IDeleteCriteria, IDeleteOptions, IDeleteQuery} from '../crud/delete'
+Object.defineProperty(exports, "__esModule", { value: true });
