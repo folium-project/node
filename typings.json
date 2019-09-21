@@ -1,0 +1,4 @@
+{
+  "name": "folium",
+  "main": "dist/index.d.ts"
+}

@@ -20,9 +20,9 @@ import {IOptions} from '../types'
  * Create
  ******************************************************************************/
 
-import {ICrudCreateCriteria as IRestCreateCriteria} from '../crud'
+import {ICrudCreateCriteria} from '../crud'
 
-export {IRestCreateCriteria}
+export type IRestCreateCriteria = ICrudCreateCriteria
 
 /**
  * Interface for implementing CRUD Create method.
@@ -70,9 +70,10 @@ export interface IRestCreateQuery {
  * Delete
  ******************************************************************************/
 
-import {ICrudDeleteCriteria as IRestDeleteCriteria, ICrudDeleteOptions as IRestDeleteOptions} from '../crud'
+import {ICrudDeleteCriteria, ICrudDeleteOptions} from '../crud'
 
-export {IRestDeleteCriteria, IRestDeleteOptions}
+export type IRestDeleteCriteria = ICrudDeleteCriteria
+export type IRestDeleteOptions = ICrudDeleteOptions
 
 /**
  * Interface for implementing CRUD Delete (Destroy) method.
@@ -138,9 +139,10 @@ export interface IRestDeleteQuery {
  * Fetch
  ******************************************************************************/
 
-import {ICrudReadCriteria as IRestFetchCriteria, ICrudReadOptions as IRestFetchOptions} from '../crud'
+import {ICrudReadCriteria, ICrudReadOptions} from '../crud'
 
-export {IRestFetchCriteria, IRestFetchOptions}
+export type IRestFetchCriteria = ICrudReadCriteria
+export type IRestFetchOptions = ICrudReadOptions
 
 /**
  * Interface for implementing REST Fetch method.
@@ -320,3 +322,11 @@ export interface IRestUpdateQuery {
  ******************************************************************************/
 
 export interface IRest extends IRestCreate, IRestDelete, IRestFetch, IRestReplace, IRestRetreive, IRestUpdate {}
+
+export interface IRestQuery
+  extends IRestCreateQuery,
+    IRestDeleteQuery,
+    IRestFetchQuery,
+    IRestReplaceQuery,
+    IRestRetreiveQuery,
+    IRestUpdateQuery {}
