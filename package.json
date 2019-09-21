@@ -45,7 +45,7 @@
     "typescript": "^3.6.3",
     "yorkie": "^2.0.0"
   },
-  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "dependencies": {
     "uuid": "^3.3.3"
   },
