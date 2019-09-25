@@ -13,24 +13,18 @@
  * limitations under the License.
  */
 
-import {IModel, IModelStateID} from '../model/model'
+import {IModel, IModelStateID, IModelState} from '../model/model'
 import {IStringAnyMap} from '../types'
+import {ICriteria} from './types'
 
 /**
- * TODO: To be defined
- */
-export type ICreateCriteria = IStringAnyMap
-
-/**
- * Interface for implementing CRUD Create method.
+ * Generic Interface for implementing CRUD Create method.
  * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
- * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface ICreate {
+export interface ICrudGenericCreate {
   /**
    * Create new resource(s).
-   * Can receive a item or a set of items to create.
-   *
+   * 
    * create({ "text": "I really have to iron" })
    *
    * or
@@ -39,13 +33,32 @@ export interface ICreate {
    *   { "text": "I really have to iron" },
    *   { "text": "Do laundry" }
    * ])
-   *
-   * @param {IModel|IModel[]}   items     Can be a single element or an array of elements
-   * @param {ICreateCriteria}   criteria  Default: {}
-   * @returns {IModelStateID[]}           Will return an array of ids for the models that have been saved in the
-   *                                      database.
+   * 
+   * @param {any} items    Can either represent models or data structures matching the data required by the models
+   * @param {any} criteria Not used.
+   * @returns              Can return either a list of ids of the created resources, either the list of the created 
+   *                       resources themselves.
    */
-  create(items: IModel | IModel[], criteria: ICreateCriteria): IModelStateID[]
+  create(items: any, criteria?: ICriteria): any
+}
+
+export type ICrudCreatableItems = IModelState|IModelState[]|IModel|IModel[]
+export type ICrudCreatedItems = IModelStateID|IModelStateID[]|IModel|IModel[]
+
+/**
+ * Interface for implementing CRUD Create method.
+ * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+ */
+export interface ICrudCreate extends ICrudGenericCreate {
+  /**
+   * @see ICrudGenericCreate.create
+   *
+   * @param {ICrudCreatableItems} items     Can be a single element or an array of elements
+   * @param {ICriteria}           criteria  Not used.
+   * @returns {ICrudCreatedItems}           Will return an array of ids for the models that have been saved in the
+   *                                        database.
+   */
+  create(items: ICrudCreatableItems, criteria?: ICriteria): ICrudCreatedItems
 }
 
 /**
@@ -56,9 +69,9 @@ export interface ICreateQuery {
    * Generate string query for `ICreate.create` method.
    * @see ICreate.create
    *
-   * @param {IModel|IModels[]} items     can be a single element or an array of elements
-   * @param {ICreateCriteria}  criteria  Default: {}
+   * @param {ICrudCreatableItems} items     Can be a single element or an array of elements
+   * @param {ICriteria}           criteria  Not used.
    * @returns {string}
    */
-  create(items: IModel | IModel[], criteria: ICreateCriteria): string
+  create(items: ICrudCreatableItems, criteria?: ICriteria): string
 }

@@ -15,9 +15,9 @@
 
 import {IModel} from '../model/model'
 import {IOptions} from '../types'
-import {IReadCriteria} from './read'
+import {ICriteria} from './types'
 
-export type IDeleteCriteria = IReadCriteria
+export type IDeletableItems = IModel|IModel[]|null
 
 /**
  *
@@ -25,6 +25,47 @@ export type IDeleteCriteria = IReadCriteria
 export interface IDeleteOptions extends IOptions {
   __soft_delete?: boolean
 }
+
+/**
+ * Interface for implementing CRUD Delete (Destroy) method.
+ * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+ */
+export interface IDelete {
+  /**
+   * Delete resource(s) from the database.
+   *
+   * delete({ "text": "I really have to iron" })
+   *
+   * or
+   *
+   * delete([
+   *   { "text": "I really have to iron" },
+   *   { "text": "Do laundry" }
+   * ])
+   *
+   * or
+   *
+   * delete([], [
+   *   ( 'id', '>', 10 )
+   * ])
+   *
+   * or
+   *
+   * delete([], [
+   *   ( 'id', '>', 10 )
+   * ], { '__soft_delete': True })
+   *
+   * @param {any}            items    can be represented by one or multiple resources; Default: null
+   *                                  if `items` is `null`, method will use the criteria `argument` instead
+   * @param {ICriteria}      criteria implementing criteria by which to delete
+   *                                  if `criteria` is `null`, method is to delete all resources for a specfic type
+   * @param {IDeleteOptions} options  options for how an item is deleted:
+*                                     `__soft_delete`: mention whether the items are soft deleted or not
+   * @returns {void}
+   */
+  delete(items?: any, criteria?: ICriteria, options?: IDeleteOptions): void
+}
+
 
 /**
  * Interface for implementing CRUD Delete (Destroy) method.
