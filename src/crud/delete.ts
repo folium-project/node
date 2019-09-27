@@ -13,24 +13,25 @@
  * limitations under the License.
  */
 
-import {IModel} from '../model/model'
-import {IOptions} from '../types'
-import {ICriteria} from './types'
+import {IEntity} from '../entity/entity'
+import {IStringAnyMap} from '../types.d'
+import {ICriteria} from './types.d'
 
-export type IDeletableItems = IModel|IModel[]|null
+export type IDeletableEntities = IEntity | IEntity[] | null
+export type IDeletedEntities = IEntity[] | void
 
 /**
  *
  */
-export interface IDeleteOptions extends IOptions {
+export interface IDeleteOptions extends IStringAnyMap {
   __soft_delete?: boolean
 }
 
 /**
- * Interface for implementing CRUD Delete (Destroy) method.
+ * Generic Interface for implementing CRUD Delete (Destroy) method.
  * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
  */
-export interface IDelete {
+export interface ICrudGenericDelete {
   /**
    * Delete resource(s) from the database.
    *
@@ -55,74 +56,51 @@ export interface IDelete {
    *   ( 'id', '>', 10 )
    * ], { '__soft_delete': True })
    *
-   * @param {any}            items    can be represented by one or multiple resources; Default: null
-   *                                  if `items` is `null`, method will use the criteria `argument` instead
-   * @param {ICriteria}      criteria implementing criteria by which to delete
-   *                                  if `criteria` is `null`, method is to delete all resources for a specfic type
-   * @param {IDeleteOptions} options  options for how an item is deleted:
-*                                     `__soft_delete`: mention whether the items are soft deleted or not
-   * @returns {void}
+   * @param {any}            entities Can represent none, one or multiple entities:
+   *                                  - if `items` is `null`, method will use the criteria `argument` instead
+   * @param {ICriteria}      criteria Delete criteria:
+   *                                  - if both `items` and `criteria` are `null`, method is to delete all entities
+   *                                  for a specfic type
+   * @param {IDeleteOptions} options  Options for how an item is deleted:
+   *                                  - `__soft_delete`: mention whether the items are soft deleted or not
+   * @returns {any}                   Usually, delete() method should return void; however ocasional APIs could require
+   *                                  returning the list of deleted entities data
    */
-  delete(items?: any, criteria?: ICriteria, options?: IDeleteOptions): void
+  delete(entities?: any, criteria?: ICriteria, options?: IDeleteOptions): any
 }
-
 
 /**
  * Interface for implementing CRUD Delete (Destroy) method.
  * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
- * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface IDelete {
+export interface ICrudDelete extends ICrudGenericDelete {
   /**
-   * Delete resource(s) from the database.
-   * When `items` is provided, the `criteria` argument will be ignored and will deleted only resources mentioned in
-   * `items`.
-   * When `items` is null, the `criteria` argument will take charge, giving the change to delete resource by criteria.
-   * If `items` is null and `criteria` is [] all stored resource are to be deleted.
-   *
-   * delete({ "text": "I really have to iron" })
-   *
-   * or
-   *
-   * delete([
-   *   { "text": "I really have to iron" },
-   *   { "text": "Do laundry" }
-   * ])
-   *
-   * or
-   *
-   * delete([], [
-   *   ( 'id', '>', 10 )
-   * ])
-   *
-   * or
-   *
-   * delete([], [
-   *   ( 'id', '>', 10 )
-   * ], { '__soft_delete': True })
-   *
-   * @param {IModel|IModel[]|null} items    can be a single element or an array of elements or null; Default: null
-   * @param {IDeleteCriteria}      criteria implementing criteria by which to delete
-   * @param {IDeleteOptions}       options  options for how an item is deleted:
-   *                                        `__soft_delete`: mention whether the items are soft deleted or not
-   * @returns {void}
+   * @param {IDeletableEntities} entities Can represent none, one or multiple entities:
+   *                                      - if `items` is `null`, method will use the criteria `argument` instead
+   * @param {ICriteria}          criteria Delete criteria:
+   *                                      - if both `items` and `criteria` are `null`, method is to delete all entities
+   *                                      for a specfic type
+   * @param {IDeleteOptions}     options  Options for how an item is deleted:
+   *                                      - `__soft_delete`: mention whether the items are soft deleted or not
+   * @returns {IDeletedEntities}          Usually, delete() method should return void; however ocasional APIs could
+   *                                      require returning the list of deleted elements
    */
-  delete(items: IModel | IModel[] | null, criteria: IDeleteCriteria, options: IDeleteOptions): void
+  delete(entities?: IDeletableEntities, criteria?: ICriteria, options?: IDeleteOptions): IDeletedEntities
 }
 
 /**
  * Interface for implementing CRUD Delete (Destroy) query.
  */
-export interface IDeleteQuery {
+export interface ICrudDeleteQuery {
   /**
-   * Generate string query for `IDelete.delete` method.
-   * @see IDelete.delete
-   *
-   * @param {IModel|IModel[]|null} items    can be a single element or an array of elements or null; Default: null
-   * @param {IDeleteCriteria}      criteria implementing criteria by which to delete
-   * @param {IDeleteOptions}       options  options for how an item is deleted:
-   *                                        `__soft_delete`: mention whether the items are soft deleted or not
+   * @param {IDeletableEntities} entities Can represent none, one or multiple entities:
+   *                                      - if `items` is `null`, method will use the criteria `argument` instead
+   * @param {ICriteria}          criteria Delete criteria:
+   *                                      - if both `items` and `criteria` are `null`, method is to delete all entities
+   *                                      for a specfic type
+   * @param {IDeleteOptions}     options  Options for how an item is deleted:
+   *                                      - `__soft_delete`: mention whether the items are soft deleted or not
    * @returns {string}
    */
-  delete(items: IModel | IModel[] | null, criteria: IDeleteCriteria, options: IDeleteOptions): string
+  delete(entities?: IDeletableEntities, criteria?: ICriteria, options?: IDeleteOptions): string
 }

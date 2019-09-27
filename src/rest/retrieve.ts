@@ -14,49 +14,83 @@ import {IReadCriteria, IReadOptions} from './../crud/read'
  * limitations under the License.
  */
 
-import {IReadCriteria as IRetreiveCriteria, IReadOptions as IRetreiveOptions} from '../crud/read'
-import {IModel, IModelStateID} from '../model/model'
-import {IOptions} from '../types'
-
-export {IRetreiveCriteria, IRetreiveOptions}
+import {IEntity, IEntityCode, IEntityState} from '../entity'
+import {IStringAnyMap} from '../types'
 
 /**
- * Interface for implementing REST Retreive (FetchOne) method.
+ * Generic Interface for implementing REST Retreive (FetchOne) method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface IRetreive {
+export interface IRestGenericRetreive {
   /**
-   * Retrieve resource from the database based on its ID and on a set of fields to be returned.
+   * Retrieve entity from the database based on its ID and on a set of fields to be returned.
    *
-   * retrieve(10) # will return entire resource
+   * retrieve(10) # will return entire entity
    *
    * or
    *
    * retrieve(
    *   10,
    *   [ 'id', 'name', 'email' ]
-   * ) # will return only the fields mentioned from a resource
+   * ) # will return only the fields mentioned from a entity
    *
-   * @param {IModelStateID} id      ID of the resource to retreive
-   * @param {string[]}      fields  fields to obtain (can be empty - will return all fields)
-   * @param {IOptions}      options
-   * @returns {IModel}              resource data
+   * @param {any}           code    Code/id of the entity to retreive
+   * @param {string[]}      fields  Fields to obtain (can be empty - will return all fields)
+   * @param {IStringAnyMap} options Not used. Define whatever suits you.
+   * @returns {any}                 Should return null if no entity was found or, entity or data structure with entity
+   *                                fields if entity was found
    */
-  retrieve(id: IModelStateID, fields: string[], options: IOptions): IModel
+  retrieve(code: any, fields?: string[], options?: IStringAnyMap): any
+}
+
+export type IRetreivedEntity = IEntity | IEntityState
+
+/**
+ * Interface for implementing REST Retreive (FetchOne) method.
+ * @see https://en.wikipedia.org/wiki/Representational_state_transfer
+ */
+export interface IRestRetreive extends IRestGenericRetreive {
+  /**
+   * Retrieve entity from the database based on its ID and on a set of fields to be returned.
+   *
+   * retrieve(10) # will return entire entity
+   *
+   * or
+   *
+   * retrieve(
+   *   10,
+   *   [ 'id', 'name', 'email' ]
+   * ) # will return only the fields mentioned from a entity
+   *
+   * @param {IEntityCode}      code    Code/id of the entity to retreive
+   * @param {string[]}           fields  Fields to obtain (can be empty - will return all fields)
+   * @param {IStringAnyMap}      options Not used. Define whatever suits you.
+   * @returns {IRetreivedEntity}         Should return null if no entity was found or, entity or data structure with entity
+   *                                     fields if entity was found
+   */
+  retrieve(code: IEntityCode, fields?: string[], options?: IStringAnyMap): IRetreivedEntity
 }
 
 /**
  * Interface for implementing REST Retrieve query.
  */
-export interface IRetreiveQuery {
+export interface IRestRetreiveQuery extends IRestGenericRetreive {
   /**
-   * Generate string query for `Retrieve.retrieve` method.
-   * @see Retrieve.retrieve
+   * Retrieve entity from the database based on its ID and on a set of fields to be returned.
    *
-   * @param {IModelStateID} id      ID of the resource to retreive
-   * @param {string[]}      fields  fields to obtain (can be empty - will return all fields)
-   * @param {IOptions}      options
+   * retrieve(10) # will return entire entity
+   *
+   * or
+   *
+   * retrieve(
+   *   10,
+   *   [ 'id', 'name', 'email' ]
+   * ) # will return only the fields mentioned from a entity
+   *
+   * @param {IEntityCode}      code    Code/id of the entity to retreive
+   * @param {string[]}           fields  Fields to obtain (can be empty - will return all fields)
+   * @param {IStringAnyMap}      options Not used. Define whatever suits you.
    * @returns {string}
    */
-  retrieve(id: IModelStateID, fields: string[], options: IOptions): string
+  retrieve(code: IEntityCode, fields?: string[], options?: IStringAnyMap): string
 }

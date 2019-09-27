@@ -13,26 +13,26 @@
  * limitations under the License.
  */
 
-import {IModel} from '../model/model'
-import {IOptions} from '../types'
+import {IEntity, IEntityState} from '../entity'
+import {IStringAnyMap} from '../types.d'
+import {ICriteria} from './types'
 
-export type IReadCriteria = Array<[string, any, any?]>
+export type IReadEntities = IEntity[] | IEntityState[] | number
 
 /**
  *
  */
-export interface IReadOptions extends IOptions {
+export interface IReadOptions extends IStringAnyMap {
   __count?: boolean
 }
 
 /**
- * Interface for implementing CRUD Read (Retrieve) method.
+ * Generic Interface for implementing CRUD Read (Retrieve) method.
  * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
  */
-export interface IRead {
+export interface ICrudGenericRead {
   /**
-   * If no field is passed, all resource fields should be presented to output.
-   * Read resource(s) from the database according to a set of criteria and based on a set of fields to be returned
+   * Read entities from the database according to a set of criteria return data bases on the required set of fields.
    *
    * read([ [ 'id', '>', '10' ] ])
    *
@@ -47,29 +47,46 @@ export interface IRead {
    *
    * read([], [], { __count: true })
    *
-   * @param {IReadCriteria} criteria criteria to filter database data; Default: []
-   * @param {string[]}      fields   list of fields to read, can be empty (will read al fields); Default: []
-   * @param {IReadOptions}  options  options used by method:
-   *                                 `__count` - if true, will return count of resources in stead of list
-   * @returns {IModel[]|number}      array (or count) of resources matching the criteria (and having only the fields
+   * @param {ICriteria}     criteria Criteria to filter database data; Default: []
+   * @param {string[]}      fields   List of fields to read, can be empty (will read al fields); Default: []
+   * @param {IReadOptions}  options  Options used by method:
+   *                                 - `__count` - if true, will return count of entities in stead of list
+   * @returns {any}                  Array (or count) of entities matching the criteria (and having only the fields
    *                                 required)
    */
-  read(criteria: IReadCriteria, fields: string[], options: IReadOptions): IModel[] | number
+  read(criteria?: ICriteria, fields?: string[], options?: IReadOptions): any
+}
+
+/**
+ * Interface for implementing CRUD Read (Retrieve) method.
+ * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+ */
+export interface ICrudRead extends ICrudGenericRead {
+  /**
+   * @see ICrudGenericRead.read
+   *
+   * @param {ICriteria}     criteria Criteria to filter database data; Default: []
+   * @param {string[]}      fields   List of fields to read, can be empty (will read al fields); Default: []
+   * @param {IReadOptions}  options  Options used by method:
+   *                                 - `__count` - if true, will return count of entities in stead of list
+   * @returns {IReadEntities}        Array (or count) of entities matching the criteria (and having only the fields
+   *                                 required)
+   */
+  read(criteria?: ICriteria, fields?: string[], options?: IReadOptions): IReadEntities
 }
 
 /**
  * Interface for implementing CRUD Read (Retrieve) query.
  */
-export interface IReadQuery {
+export interface ICrudReadQuery {
   /**
-   * Generate string query for `IRead.read` method.
-   * @see IRead.read
+   * Generate string query for `ICrudRead.read` method.
    *
-   * @param {IReadCriteria} criteria (list of tuples) criteria to filter database data
-   * @param {string[]}      fields   list of fields to read, can be empty (will read al fields)
-   * @param {IReadOptions}  options  options used by method:
-   *                                 `__count` - if true, will return count of resources in stead of list
+   * @param {ICriteria}     criteria Criteria to filter database data; Default: []
+   * @param {string[]}      fields   List of fields to read, can be empty (will read al fields); Default: []
+   * @param {IReadOptions}  options  Options used by method:
+   *                                 - `__count` - if true, will return count of entities in stead of list
    * @returns {string}
    */
-  read(criteria: IReadCriteria, fields: string[], options: IReadOptions): string
+  read(criteria?: ICriteria, fields?: string[], options?: IReadOptions): string
 }

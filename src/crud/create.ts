@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-import {IModel, IModelStateID, IModelState} from '../model/model'
-import {IStringAnyMap} from '../types'
-import {ICriteria} from './types'
+import {IEntity, IEntityCode, IEntityState} from '../entity/entity'
+import {ICriteria} from './types.d'
 
 /**
  * Generic Interface for implementing CRUD Create method.
@@ -23,8 +22,8 @@ import {ICriteria} from './types'
  */
 export interface ICrudGenericCreate {
   /**
-   * Create new resource(s).
-   * 
+   * Create new entity(ies).
+   *
    * create({ "text": "I really have to iron" })
    *
    * or
@@ -33,17 +32,17 @@ export interface ICrudGenericCreate {
    *   { "text": "I really have to iron" },
    *   { "text": "Do laundry" }
    * ])
-   * 
-   * @param {any} items    Can either represent models or data structures matching the data required by the models
-   * @param {any} criteria Not used.
-   * @returns              Can return either a list of ids of the created resources, either the list of the created 
-   *                       resources themselves.
+   *
+   * @param {any} entities Can either represent entities or data matching the entities structure.
+   * @param {any} criteria Not used. Define whatever suits you.
+   * @returns              Can return either a list of ids for the created entities, either the list of the created
+   *                       entities themselves.
    */
-  create(items: any, criteria?: ICriteria): any
+  create(entities: any, criteria?: ICriteria): any
 }
 
-export type ICrudCreatableItems = IModelState|IModelState[]|IModel|IModel[]
-export type ICrudCreatedItems = IModelStateID|IModelStateID[]|IModel|IModel[]
+export type ICreatableEntities = IEntityState | IEntityState[] | IEntity | IEntity[]
+export type ICreatedEntities = IEntityCode | IEntityCode[] | IEntity | IEntity[]
 
 /**
  * Interface for implementing CRUD Create method.
@@ -51,27 +50,24 @@ export type ICrudCreatedItems = IModelStateID|IModelStateID[]|IModel|IModel[]
  */
 export interface ICrudCreate extends ICrudGenericCreate {
   /**
-   * @see ICrudGenericCreate.create
-   *
-   * @param {ICrudCreatableItems} items     Can be a single element or an array of elements
-   * @param {ICriteria}           criteria  Not used.
-   * @returns {ICrudCreatedItems}           Will return an array of ids for the models that have been saved in the
-   *                                        database.
+   * @param {ICreatableEntities} entities Can either represent entities or data matching the entities structure.
+   * @param {ICriteria}          criteria Not used. Define whatever suits you.
+   * @returns {ICreatedEntities}          Can return either a list of ids for the created entities, either the list of
+   *                                      the created entities themselves.
    */
-  create(items: ICrudCreatableItems, criteria?: ICriteria): ICrudCreatedItems
+  create(entities: ICreatableEntities, criteria?: ICriteria): ICreatedEntities
 }
 
 /**
  * Interface for implementing CRUD Create query.
  */
-export interface ICreateQuery {
+export interface ICrudCreateQuery extends ICrudGenericCreate {
   /**
-   * Generate string query for `ICreate.create` method.
-   * @see ICreate.create
+   * Generate string query for `ICrudCreate.create` method.
    *
-   * @param {ICrudCreatableItems} items     Can be a single element or an array of elements
-   * @param {ICriteria}           criteria  Not used.
+   * @param {ICreatableEntities} entities Can either represent entities or data matching the entities structure.
+   * @param {ICriteria}          criteria Not used. Define whatever suits you.
    * @returns {string}
    */
-  create(items: ICrudCreatableItems, criteria?: ICriteria): string
+  create(entities: ICreatableEntities, criteria?: ICriteria): string
 }

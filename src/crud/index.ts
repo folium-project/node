@@ -1,32 +1,21 @@
-import {ICreate, ICreateCriteria, ICreateQuery} from './create'
-import {IDelete, IDeleteCriteria, IDeleteOptions, IDeleteQuery} from './delete'
-import {IRead, IReadCriteria, IReadOptions, IReadQuery} from './read'
-import {IUpdate, IUpdateCriteria, IUpdateQuery} from './update'
+import {ICrudCreate, ICrudCreateQuery} from './create'
+import {ICrudDelete, ICrudDeleteQuery} from './delete'
+import {ICrudRead, ICrudReadQuery} from './read'
+import {ICrudUpdate, ICrudUpdateQuery} from './update'
 
-export {
-  ICreate,
-  ICreateCriteria,
-  ICreateQuery,
-  IDelete,
-  IDeleteCriteria,
-  IDeleteOptions,
-  IDeleteQuery,
-  IRead,
-  IReadCriteria,
-  IReadOptions,
-  IReadQuery,
-  IUpdate,
-  IUpdateCriteria,
-  IUpdateQuery,
-}
+export * from './create'
+export * from './delete'
+export * from './read'
+export * from './update'
+export * from './types'
 
 /**
  * Interface for implementing CRUD methods.
  * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
  */
-export interface ICrud extends ICreate, IRead, IUpdate, IDelete {}
+export interface ICrud extends ICrudCreate, ICrudRead, ICrudUpdate, ICrudDelete {}
 
 /**
  * Interface for implementing CRUD query methods.
  */
-export interface ICrudQuery extends ICreateQuery, IReadQuery, IUpdateQuery, IDeleteQuery {}
+export interface ICrudQuery extends ICrudCreateQuery, ICrudReadQuery, ICrudUpdateQuery, ICrudDeleteQuery {}

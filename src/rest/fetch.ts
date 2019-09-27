@@ -1,4 +1,3 @@
-import {IReadCriteria, IReadOptions} from './../crud/read'
 /**
  * Copyright 2018 IT Media Connect
  *
@@ -14,19 +13,15 @@ import {IReadCriteria, IReadOptions} from './../crud/read'
  * limitations under the License.
  */
 
-import {IReadCriteria as IFetchCriteria, IReadOptions as IFetchOptions} from '../crud/read'
-import {IModel} from '../model/model'
-
-export {IFetchCriteria, IFetchOptions}
+import {ICriteria, IReadOptions, IReadEntities} from '../crud'
 
 /**
- * Interface for implementing REST Fetch method.
+ * Generic Interface for implementing REST Fetch method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface IFetch {
+export interface IRestGenericFetch {
   /**
-   * If no field is passed, all resource fields should be presented to output.
-   * Read resource(s) from the database according to a set of criteria and based on a set of fields to be returned
+   * Read entities from the database according to a set of criteria return data bases on the required set of fields.
    *
    * read([ [ 'id', '>', '10' ] ])
    *
@@ -41,29 +36,44 @@ export interface IFetch {
    *
    * read([], [], [ '__count' => True ])
    *
-   * @param {IFetchCriteria} criteria criteria to filter database data
-   * @param {string[]}       fields   list of fields to read, can be empty (will read al fields)
-   * @param {IFetchOptions}  options  options used by method:
-   *                                  `__count` - if True, will return count of resources in stead of list
-   * @returns {IModel[]|number}       array (or count) of resources matching the criteria (and having only the fields
-   *                                  required)
+   * @param {ICriteria}     criteria Criteria to filter database data; Default: []
+   * @param {string[]}      fields   List of fields to read, can be empty (will read al fields); Default: []
+   * @param {IReadOptions}  options  Options used by method:
+   *                                 - `__count` - if true, will return count of entities in stead of list
+   * @returns {any}                  Array (or count) of entities matching the criteria (and having only the fields
+   *                                 required)
    */
-  fetch(criteria: IFetchCriteria, fields: string[], options: IFetchOptions): IModel[] | number
+  fetch(criteria?: ICriteria, fields?: string[], options?: IReadOptions): any
+}
+
+/**
+ * Interface for implementing REST Fetch method.
+ * @see https://en.wikipedia.org/wiki/Representational_state_transfer
+ */
+export interface IReadFetch extends IRestGenericFetch {
+  /**
+   * @param {ICriteria}     criteria Criteria to filter database data; Default: []
+   * @param {string[]}      fields   List of fields to read, can be empty (will read al fields); Default: []
+   * @param {IReadOptions}  options  Options used by method:
+   *                                 - `__count` - if true, will return count of entities in stead of list
+   * @returns {IReadEntities}        Array (or count) of entities matching the criteria (and having only the fields
+   *                                 required)
+   */
+  fetch(criteria?: ICriteria, fields?: string[], options?: IReadOptions): IReadEntities
 }
 
 /**
  * Interface for implementing REST Fetch query.
  */
-export interface IFetchQuery {
+export interface IFetchQuery extends IRestGenericFetch {
   /**
-   * Generate string query for `Fetch.fetch` method.
-   * @see Fetch.fetch
+   * Generate string query for `IRestFetch.fetch` method.
    *
-   * @param {IFetchCriteria} criteria criteria to filter database data
-   * @param {string[]}       fields   list of fields to read, can be empty (will read al fields)
-   * @param {IFetchOptions}  options  options used by method:
-   *                                  `__count` - if True, will return count of resources in stead of list
+   * @param {ICriteria}     criteria Criteria to filter database data; Default: []
+   * @param {string[]}      fields   List of fields to read, can be empty (will read al fields); Default: []
+   * @param {IReadOptions}  options  Options used by method:
+   *                                 - `__count` - if true, will return count of entities in stead of list
    * @returns {string}
    */
-  fetch(criteria: IFetchCriteria, fields: string[], options: IFetchOptions): string
+  fetch(criteria?: ICriteria, fields?: string[], options?: IReadOptions): string
 }

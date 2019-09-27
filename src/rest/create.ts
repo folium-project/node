@@ -13,4 +13,36 @@
  * limitations under the License.
  */
 
-export {ICreate, ICreateCriteria, ICreateQuery} from '../crud/create'
+import {ICrudGenericCreate, ICreatableEntities, ICreatedEntities, ICriteria} from '../crud'
+
+/**
+ * Generic Interface for implementing REST Create method.
+ * @see https://en.wikipedia.org/wiki/Representational_state_transfer
+ */
+export interface IRestGenericreate extends ICrudGenericCreate {}
+
+/**
+ * Interface for implementing REST Create method.
+ * @see https://en.wikipedia.org/wiki/Representational_state_transfer
+ */
+export interface IRestCreate extends IRestGenericreate {
+  /**
+   * @param {ICreatableEntities} entities Can either represent entities or data matching the entities structure.
+   * @param {ICriteria}          criteria Not used. Define whatever suits you.
+   * @returns {ICreatedEntities}          Can return either a list of ids for the created entities, either the list of
+   *                                      the created entities themselves.
+   */
+  create(entities: ICreatableEntities, criteria?: ICriteria): ICreatedEntities
+}
+
+/**
+ * Interface for implementing REST Create Query.
+ */
+export interface IRestCreateQuery extends IRestGenericreate {
+  /**
+   * @param {ICreatableEntities} entities Can either represent entities or data matching the entities structure.
+   * @param {ICriteria}          criteria Not used. Define whatever suits you.
+   * @returns {string}
+   */
+  create(entities: ICreatableEntities, criteria?: ICriteria): string
+}

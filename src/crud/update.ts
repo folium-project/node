@@ -13,24 +13,17 @@
  * limitations under the License.
  */
 
-import {IModel, IModelStateID} from '../model/model'
-import {IOptions} from '../types'
-import {IReadCriteria} from './read'
-
-export type IUpdateCriteria = IReadCriteria
+import {IEntity, IEntityCode, IEntityState} from '../entity/entity'
+import {ICriteria} from './types.d'
+import {IStringAnyMap} from '../types.d'
 
 /**
  * Interface for implementing CRUD Update (Modify) method.
  * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
  */
-export interface IUpdate {
+export interface ICrudGenericUpdate {
   /**
    * Update/replace a resource or set of resources in the database.
-   * If a resource does not exists when passed to the update method, it will be created.
-   *
-   * If `criteria` is given, method will then function as an 'update/patch' handler, not as a 'replace' one.
-   * If `criteria` is given and `items` are multiple, function will apply all all items as patch.
-   * If `criteria` is not give, and resource is not having an ID, method will try to create the resource.
    *
    * update({ "text": "I really have to iron" }, [ ( 'id', 10 ) ]) # behave as patch (update)
    *
@@ -41,27 +34,64 @@ export interface IUpdate {
    *   { "text": "Do laundry" ] # this item will be created
    * ])
    *
-   * @param {IModel|IModel[]}   items    can be a single element or an array of elements
-   * @param {IUpdateCriteria}   criteria criteria to filter database data
-   * @param {IOptions}          options  TODO: to be defined
-   * @returns {IModelStateID[]}          will return the ids of the elements updated
+   * @param {any}           items    Can be one or more entities. If an entity does not exists when passed to the update
+   *                                 method, it will be created.
+   * @param {ICriteria}     criteria Criteria to update/patch database data:
+   *                                 - If `criteria` is given, method will then function as an 'update/patch' handler,
+   *                                 not as a 'replace' one.
+   *                                 - If `criteria` is given and `items` are multiple, function will apply all all
+   *                                 items as patch.
+   *                                 - If `criteria` is not given, and resource is not having an ID, method will try to
+   *                                 create the resource.
+   * @param {IStringAnyMap} options  Not used. Define whatever suits you.
+   * @returns {any}                  Can return either a list of ids for the updated/created entities, either the
+   *                                 list of the created entities themselves.
    */
-  update(items: IModel | IModel[], criteria: IUpdateCriteria, options: IOptions): IModelStateID[]
+  update(items: any, criteria?: ICriteria, options?: IStringAnyMap): any
 }
+
+export type IUpdatableItems = IEntityState | IEntityState[] | IEntity | IEntity[]
+export type IUpdatedItems = IEntityCode | IEntityCode[]
 
 /**
  * Interface for implementing CRUD Update (Modify) method.
  * @see https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
  */
-export interface IUpdateQuery {
+export interface ICrudUpdate extends ICrudGenericUpdate {
   /**
-   * Generate string query for `Update.update` method.
-   * @see Update.update
+   * @param {IUpdatableItems} items    Can be one or more entities. If an entity does not exists when passed to the update
+   *                                   method, it will be created.
+   * @param {ICriteria}       criteria criteria to filter database data:
+   *                                   - If `criteria` is given, method will then function as an 'update/patch' handler,
+   *                                   not as a 'replace' one.
+   *                                   - If `criteria` is given and `items` are multiple, function will apply all all
+   *                                   items as patch.
+   *                                   - If `criteria` is not given, and resource is not having an ID, method will try to
+   *                                   create the resource.
+   * @param {IOptions}        options  Not used. Define whatever suits you.
+   * @returns {IUpdatedItems}          Will return the ids of the entities updated
+   */
+  update(items: IUpdatableItems, criteria?: ICriteria, options?: IStringAnyMap): IUpdatedItems
+}
+
+/**
+ * Interface for implementing CRUD Update (Modify) Query.
+ */
+export interface ICrudUpdateQuery {
+  /**
+   * Generate string query for `ICrudUpdate.update` method.
    *
-   * @param {IModel|IModel[]}   items    can be a single element or an array of elements
-   * @param {IUpdateCriteria}   criteria criteria to filter database data
-   * @param {IOptions}          options  TODO: to be defined
+   * @param {IUpdatableItems} items    Can be one or more entities. If an entity does not exists when passed to the update
+   *                                   method, it will be created.
+   * @param {ICriteria}       criteria criteria to filter database data:
+   *                                   - If `criteria` is given, method will then function as an 'update/patch' handler,
+   *                                   not as a 'replace' one.
+   *                                   - If `criteria` is given and `items` are multiple, function will apply all all
+   *                                   items as patch.
+   *                                   - If `criteria` is not given, and resource is not having an ID, method will try to
+   *                                   create the resource.
+   * @param {IOptions}        options  Not used. Define whatever suits you.
    * @returns {string}
    */
-  update(items: IModel | IModel[], criteria: IUpdateCriteria, options: IOptions): string
+  update(items: IUpdatableItems, criteria?: ICriteria, options?: IStringAnyMap): string
 }

@@ -32,6 +32,3 @@ export interface IStringNumberMap extends IStringTMap<number> {}
 
 export interface INumberBooleanMap extends INumberTMap<boolean> {}
 export interface IStringBooleanMap extends IStringTMap<boolean> {}
-
-export type ICriteria = IStringAnyMap
-export type IOptions = IStringAnyMap

@@ -13,41 +13,68 @@
  * limitations under the License.
  */
 
-import {IModel, IModelStateID} from '../model/model'
-import {IOptions} from '../types'
+import {IEntity, IEntityCode, IEntityState} from '../entity/entity'
+import {ICriteria} from '../crud'
+import {IStringAnyMap} from '../types.d'
 
 /**
- * Interface for implementing REST Replace method.
+ * Generic Interface for implementing REST Replace method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface IReplace {
+export interface IRestGenericReplace {
   /**
-   * Replace a resource or set of resources in the database.
-   * If a resource does not exists when passed to the update method, it will be created.
+   * Replace an entity or set of entitys in the database.
    *
    * replace([
    *   { "text": "I really have to iron", "id": 10 }, # this item will be replaced
    *   { "text": "Do laundry" } # this item will be created
    * ])
    *
-   * @param {IModel|IModel[]} items can be a single element or an array of elements
-   * @param {IOptions} options
-   * @returns {IModelStateID}       will return the ids of the elements updated
+   * @param {any}      entities Can be one or more entities. If an entity does not exists when passed to the update
+   *                            method, it will be created.
+   * @param {IOptions} options  Not used. Define whatever suits you.
+   * @returns {any}             Can return either a list of ids for the updated/created entities, either the
+   *                            list of the created entities themselves.
    */
-  replace(items: IModel | IModel[], options: IOptions): IModelStateID[]
+  replace(entities: any, options?: IStringAnyMap): any
+}
+
+export type IReplaceableItems = IEntityState | IEntityState[] | IEntity | IEntity[]
+export type IReplacedItems = IEntityCode | IEntityCode[]
+
+/**
+ * Generic Interface for implementing REST Replace method.
+ * @see https://en.wikipedia.org/wiki/Representational_state_transfer
+ */
+export interface IRestReplace extends IRestGenericReplace {
+  /**
+   * Replace an entity or set of entitys in the database.
+   *
+   * replace([
+   *   { "text": "I really have to iron", "id": 10 }, # this item will be replaced
+   *   { "text": "Do laundry" } # this item will be created
+   * ])
+   *
+   * @param {IReplaceableItems} entities Can be one or more entities. If an entity does not exists when passed to
+   *                                     the update method, it will be created.
+   * @param {IOptions}          options  Not used. Define whatever suits you.
+   * @returns {IReplacedItems}           Can return either a list of ids for the updated/created entities, either the
+   *                                     list of the created entities themselves.
+   */
+  replace(entities: IReplaceableItems, options?: IStringAnyMap): IReplacedItems
 }
 
 /**
  * Interface for implementing REST Replace query.
  */
-export interface IReplaceQuery {
+export interface IRestReplaceQuery extends IRestGenericReplace {
   /**
-   * Generate string query for `Replace.replace` method.
-   * @see Replace.replace
+   * Generate string query for `IRestReplace.replace` method.
    *
-   * @param {IModel|IModel[]} items can be a single element or an array of elements
-   * @param {IOptions} options
+   * @param {IReplaceableItems} entities Can be one or more entities. If an entity does not exists when passed to
+   *                                     the update method, it will be created.
+   * @param {IOptions}          options  Not used. Define whatever suits you.
    * @returns {string}
    */
-  replace(items: IModel | IModel[], options: IOptions): string
+  replace(entities: IReplaceableItems, options?: IStringAnyMap): string
 }

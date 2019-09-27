@@ -1,9 +1,4 @@
-// from .create import *
-// from .fetch import *
-// from .retrieve import *
-// from .replace import *
-// from .update import *
-// from .delete import *
+export * from './create'
 
 // class REST(Create, Fetch, Retrieve, Replace, Update, Delete):
 //     """
