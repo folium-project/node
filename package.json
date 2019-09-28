@@ -41,6 +41,8 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
+    "@types/faker": "^4.1.5",
+    "faker": "^4.1.0",
     "typedoc": "^0.15.0",
     "uuid": "^3.3.3"
   }

@@ -43,28 +43,4 @@ describe('testing MyEntity implementation', () => {
     expect(MyEntityJson).to.not.be.a('null')
     expect(MyEntityJson).to.be.a('string')
   })
-
-  // it('::fromObject() should return a MyEntity', () => {
-  //   expect(MyEntity.fromObject({}, MyEntity)).to.not.be.a('null')
-  //   expect(MyEntity.fromObject({}, MyEntity).code).to.be.a('undefined')
-
-  //   expect(MyEntity.fromObject({code: 10}, MyEntity)).to.not.be.a('null')
-  //   expect(MyEntity.fromObject({code: 10}, MyEntity).code).to.be.a('number')
-  //   expect(MyEntity.fromObject({code: 10}, MyEntity).code).to.equal(10)
-  // })
-
-  // it('::fromJson() should return a MyEntity', () => {
-  //   expect(MyEntity.fromJson('{}', MyEntity)).to.not.be.a('null')
-  //   expect(MyEntity.fromJson('{}', MyEntity).code).to.be.a('undefined')
-
-  //   expect(MyEntity.fromJson('{"id":10}', MyEntity)).to.not.be.a('null')
-  //   expect(MyEntity.fromJson('{"id":10}', MyEntity).code).to.be.a('number')
-  //   expect(MyEntity.fromJson('{"id":10}', MyEntity).code).to.equal(10)
-  // })
-
-  // it('::fake() should return a MyEntity', () => {
-  //   expect(MyEntity.fake()).to.not.be.a('null')
-  //   expect(MyEntity.fake() instanceof MyEntity).to.be.true
-  //   expect(MyEntity.fake().code).to.be.a('undefined')
-  // })
 })

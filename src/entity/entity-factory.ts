@@ -14,10 +14,9 @@
  */
 
 import {IEntity} from './entity'
-import {IStringAnyMap, IStringTMap} from '../types'
+import {IStringAnyMap} from '../types'
 
 export interface IEntityFactory {
-  fake<T extends IEntity>(klass?: {new (state: IStringAnyMap): T}): T
   fromJson<T extends IEntity>(state: string, klass?: {new (state: IStringAnyMap): T}): T
   fromObject<T extends IEntity>(state: IStringAnyMap, klass?: {new (state: IStringAnyMap): T}): T
 }
@@ -34,10 +33,6 @@ export class EntityFactory implements IEntityFactory {
       EntityFactory._instance = new EntityFactory()
     }
     return EntityFactory._instance
-  }
-
-  fake<T extends IEntity>(klass?: {new (state: IStringAnyMap): T}): T {
-    return this.fromObject({}, klass)
   }
 
   fromJson<T extends IEntity>(state: string, klass?: {new (state: IStringAnyMap): T}): T {
