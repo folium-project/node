@@ -50,7 +50,7 @@ export interface IRestGenericFetch {
  * Interface for implementing REST Fetch method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface IReadFetch extends IRestGenericFetch {
+export interface IRestFetch extends IRestGenericFetch {
   /**
    * @param {ICriteria}     criteria Criteria to filter database data; Default: []
    * @param {string[]}      fields   List of fields to read, can be empty (will read al fields); Default: []
@@ -65,7 +65,7 @@ export interface IReadFetch extends IRestGenericFetch {
 /**
  * Interface for implementing REST Fetch query.
  */
-export interface IFetchQuery extends IRestGenericFetch {
+export interface IRestFetchQuery extends IRestGenericFetch {
   /**
    * Generate string query for `IRestFetch.fetch` method.
    *

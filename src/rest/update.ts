@@ -62,7 +62,7 @@ export interface IRestUpdate extends IRestGenericUpdate {
 /**
  * Interface for implementing REST Update query.
  */
-export interface IUpdateQuery extends IRestGenericUpdate {
+export interface IRestUpdateQuery extends IRestGenericUpdate {
   /**
    * Generate string query for `Update.update` method.
    *
