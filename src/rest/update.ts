@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
+import {IEntity, IEntityCode, IEntityState} from '../entity'
 import {IStringAnyMap} from '../types'
-import {IEntity, IEntityState, IEntityCode} from '../entity'
 
 /**
  * Generic Interface for implementing REST Update (Patch) method.

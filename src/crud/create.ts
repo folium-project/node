@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import {IEntity, IEntityCode, IEntityState} from '../entity/entity'
+import {IEntity, IEntityCode, IEntityState} from '../entity'
 import {ICriteria} from './types.d'
 
 /**

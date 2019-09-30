@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-import {IEntity, IEntityCode, IEntityState} from '../entity/entity'
-import {ICriteria} from '../crud'
+import {IEntity, IEntityCode, IEntityState} from '../entity'
 import {IStringAnyMap} from '../types.d'
 
 /**

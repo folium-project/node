@@ -8,7 +8,7 @@ export interface IMyEntityState extends IEntityState {}
 export class MyEntity extends Entity {
   protected state?: IMyEntityState
 
-  codeGenerate(): IEntityCode {
+  protected codeGenerate(): IEntityCode {
     return uuid.v4()
   }
 }

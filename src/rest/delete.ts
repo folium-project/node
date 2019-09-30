@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import {ICrudGenericDelete, IDeleteOptions, IDeletableEntities, IDeletedEntities, ICriteria} from '../crud'
+import {ICriteria, ICrudGenericDelete, IDeletableEntities, IDeletedEntities, IDeleteOptions} from '../crud'
 
 /**
  * Generic Interface for implementing REST Delete method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface IRestGeneriDelete extends ICrudGenericDelete {}
+export type IRestGeneriDelete = ICrudGenericDelete
 
 /**
  * Interface for implementing REST Delete method.

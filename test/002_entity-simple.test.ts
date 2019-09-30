@@ -1,17 +1,16 @@
 import {expect} from 'chai'
-import * as uuid  from 'uuid'
+import * as uuid from 'uuid'
 import * as faker from 'faker'
 
 import {IEntityState, Entity, IEntity, IEntityCode} from '../src'
-import { IStringAnyMap } from '../src/types';
+import {IStringAnyMap} from '../src/types'
 
 interface ISimpleEntityState extends IEntityState {
   name: string
 }
 
 class SimpleEntity extends Entity implements IEntity {
-
-  public codeGenerate(): IEntityCode {
+  protected codeGenerate(): IEntityCode {
     return uuid.v4().toString()
   }
 

@@ -1,4 +1,3 @@
-import {IReadCriteria, IReadOptions} from './../crud/read'
 /**
  * Copyright 2018 IT Media Connect
  *
@@ -62,11 +61,11 @@ export interface IRestRetreive extends IRestGenericRetreive {
    *   [ 'id', 'name', 'email' ]
    * ) # will return only the fields mentioned from a entity
    *
-   * @param {IEntityCode}      code    Code/id of the entity to retreive
+   * @param {IEntityCode}        code    Code/id of the entity to retreive
    * @param {string[]}           fields  Fields to obtain (can be empty - will return all fields)
    * @param {IStringAnyMap}      options Not used. Define whatever suits you.
-   * @returns {IRetreivedEntity}         Should return null if no entity was found or, entity or data structure with entity
-   *                                     fields if entity was found
+   * @returns {IRetreivedEntity}         Should return null if no entity was found or, entity or data structure with
+   *                                     entity fields if entity was found
    */
   retrieve(code: IEntityCode, fields?: string[], options?: IStringAnyMap): IRetreivedEntity
 }
@@ -87,9 +86,9 @@ export interface IRestRetreiveQuery extends IRestGenericRetreive {
    *   [ 'id', 'name', 'email' ]
    * ) # will return only the fields mentioned from a entity
    *
-   * @param {IEntityCode}      code    Code/id of the entity to retreive
-   * @param {string[]}           fields  Fields to obtain (can be empty - will return all fields)
-   * @param {IStringAnyMap}      options Not used. Define whatever suits you.
+   * @param {IEntityCode}   code    Code/id of the entity to retreive
+   * @param {string[]}      fields  Fields to obtain (can be empty - will return all fields)
+   * @param {IStringAnyMap} options Not used. Define whatever suits you.
    * @returns {string}
    */
   retrieve(code: IEntityCode, fields?: string[], options?: IStringAnyMap): string

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import {ICriteria, IReadOptions, IReadEntities} from '../crud'
+import {ICriteria, IReadEntities, IReadOptions} from '../crud'
 
 /**
  * Generic Interface for implementing REST Fetch method.

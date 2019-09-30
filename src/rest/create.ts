@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import {ICrudGenericCreate, ICreatableEntities, ICreatedEntities, ICriteria} from '../crud'
+import {ICreatableEntities, ICreatedEntities, ICriteria, ICrudGenericCreate} from '../crud'
 
 /**
  * Generic Interface for implementing REST Create method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
  */
-export interface IRestGenericreate extends ICrudGenericCreate {}
+export type IRestGenericreate = ICrudGenericCreate
 
 /**
  * Interface for implementing REST Create method.

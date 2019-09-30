@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-import {IEntity, IEntityCode, IEntityState} from '../entity/entity'
-import {ICriteria} from './types.d'
+import {IEntity, IEntityCode, IEntityState} from '../entity'
 import {IStringAnyMap} from '../types.d'
+import {ICriteria} from './types.d'
 
 /**
  * Interface for implementing CRUD Update (Modify) method.
@@ -59,15 +59,15 @@ export type IUpdatedItems = IEntityCode | IEntityCode[]
  */
 export interface ICrudUpdate extends ICrudGenericUpdate {
   /**
-   * @param {IUpdatableItems} items    Can be one or more entities. If an entity does not exists when passed to the update
-   *                                   method, it will be created.
+   * @param {IUpdatableItems} items    Can be one or more entities. If an entity does not exists when passed to the
+   *                                   update method, it will be created.
    * @param {ICriteria}       criteria criteria to filter database data:
    *                                   - If `criteria` is given, method will then function as an 'update/patch' handler,
    *                                   not as a 'replace' one.
    *                                   - If `criteria` is given and `items` are multiple, function will apply all all
    *                                   items as patch.
-   *                                   - If `criteria` is not given, and resource is not having an ID, method will try to
-   *                                   create the resource.
+   *                                   - If `criteria` is not given, and resource is not having an ID, method will try
+   *                                   to create the resource.
    * @param {IOptions}        options  Not used. Define whatever suits you.
    * @returns {IUpdatedItems}          Will return the ids of the entities updated
    */
@@ -81,15 +81,15 @@ export interface ICrudUpdateQuery {
   /**
    * Generate string query for `ICrudUpdate.update` method.
    *
-   * @param {IUpdatableItems} items    Can be one or more entities. If an entity does not exists when passed to the update
-   *                                   method, it will be created.
+   * @param {IUpdatableItems} items    Can be one or more entities. If an entity does not exists when passed to the
+   *                                   update method, it will be created.
    * @param {ICriteria}       criteria criteria to filter database data:
    *                                   - If `criteria` is given, method will then function as an 'update/patch' handler,
    *                                   not as a 'replace' one.
    *                                   - If `criteria` is given and `items` are multiple, function will apply all all
    *                                   items as patch.
-   *                                   - If `criteria` is not given, and resource is not having an ID, method will try to
-   *                                   create the resource.
+   *                                   - If `criteria` is not given, and resource is not having an ID, method will try
+   *                                   to create the resource.
    * @param {IOptions}        options  Not used. Define whatever suits you.
    * @returns {string}
    */

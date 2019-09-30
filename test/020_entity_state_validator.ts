@@ -36,8 +36,6 @@
 
 // describe('testing EntityFactory implementation', () => {
 
-
-
 //   // it('EntityFactory::instance() should return EntityFactory instance', () => {
 //   //   expect(EntityFactory.instance()).to.not.be.a('null')
 //   //   expect(EntityFactory.instance() instanceof EntityFactory).to.be.true

@@ -31,12 +31,6 @@ export abstract class Entity implements IEntity {
     }
   }
 
-  /**
-   * We suggest reading {@link https://www.callicoder.com/distributed-unique-id-sequence-number-generator/ |
-   * Generating unique IDs in a distributed environment at high scale.} article.
-   */
-  abstract codeGenerate(): IEntityCode
-
   // public getValidator()
 
   public toJson(): string {
@@ -50,4 +44,10 @@ export abstract class Entity implements IEntity {
   get code(): IEntityCode {
     return this.state!.code as IEntityCode
   }
+
+  /**
+   * We suggest reading {@link https://www.callicoder.com/distributed-unique-id-sequence-number-generator/ |
+   * Generating unique IDs in a distributed environment at high scale.} article.
+   */
+  protected abstract codeGenerate(): IEntityCode
 }
