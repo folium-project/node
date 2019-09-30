@@ -483,8 +483,8 @@ export interface IRestGenericReplace {
 	 */
 	replace(entities: any, options?: IStringAnyMap): any;
 }
-export declare type IReplaceableItems = IEntityState | IEntityState[] | IEntity | IEntity[];
-export declare type IReplacedItems = IEntityCode | IEntityCode[];
+export declare type IReplaceableEntities = IEntityState | IEntityState[] | IEntity | IEntity[];
+export declare type IReplacedEntities = IEntityCode | IEntityCode[];
 /**
  * Generic Interface for implementing REST Replace method.
  * @see https://en.wikipedia.org/wiki/Representational_state_transfer
@@ -498,13 +498,13 @@ export interface IRestReplace extends IRestGenericReplace {
 	 *   { "text": "Do laundry" } # this item will be created
 	 * ])
 	 *
-	 * @param {IReplaceableItems} entities Can be one or more entities. If an entity does not exists when passed to
+	 * @param {IReplaceableEntities} entities Can be one or more entities. If an entity does not exists when passed to
 	 *                                     the update method, it will be created.
 	 * @param {IOptions}          options  Not used. Define whatever suits you.
-	 * @returns {IReplacedItems}           Can return either a list of ids for the updated/created entities, either the
+	 * @returns {IReplacedEntities}           Can return either a list of ids for the updated/created entities, either the
 	 *                                     list of the created entities themselves.
 	 */
-	replace(entities: IReplaceableItems, options?: IStringAnyMap): IReplacedItems;
+	replace(entities: IReplaceableEntities, options?: IStringAnyMap): IReplacedEntities;
 }
 /**
  * Interface for implementing REST Replace query.
@@ -513,12 +513,12 @@ export interface IRestReplaceQuery extends IRestGenericReplace {
 	/**
 	 * Generate string query for `IRestReplace.replace` method.
 	 *
-	 * @param {IReplaceableItems} entities Can be one or more entities. If an entity does not exists when passed to
+	 * @param {IReplaceableEntities} entities Can be one or more entities. If an entity does not exists when passed to
 	 *                                     the update method, it will be created.
 	 * @param {IOptions}          options  Not used. Define whatever suits you.
 	 * @returns {string}
 	 */
-	replace(entities: IReplaceableItems, options?: IStringAnyMap): string;
+	replace(entities: IReplaceableEntities, options?: IStringAnyMap): string;
 }
 /**
  * Generic Interface for implementing REST Retreive (FetchOne) method.
