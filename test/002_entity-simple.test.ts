@@ -2,7 +2,7 @@ import {expect} from 'chai'
 import * as uuid  from 'uuid'
 import * as faker from 'faker'
 
-import {IEntityState, Entity, IEntity, IEntityCode, EntityFactory} from '../src'
+import {IEntityState, Entity, IEntity, IEntityCode} from '../src'
 import { IStringAnyMap } from '../src/types';
 
 interface ISimpleEntityState extends IEntityState {
@@ -43,23 +43,23 @@ describe('testing SimpleEntity implementation', () => {
     expect(entityObject.name).to.be.an('string')
   })
 
-  it('EntityFactory::fromObject{(...}, SimpleEntity).name should be a string', () => {
-    expect(
-      (new EntityFactory()).fromObject(
-        {
-          code: uuid.v4(),
-          name: faker.name.findName(),
-        },
-        SimpleEntity
-      ).name,
-    ).to.be.a('string')
-    expect(
-      (new EntityFactory()).fromObject(
-        {
-          name: faker.name.findName(),
-        },
-        SimpleEntity
-      ).name,
-    ).to.be.a('string')
-  })
+  // it('EntityFactory::fromObject{(...}, SimpleEntity).name should be a string', () => {
+  //   expect(
+  //     (new EntityFactory()).fromObject(
+  //       {
+  //         code: uuid.v4(),
+  //         name: faker.name.findName(),
+  //       },
+  //       SimpleEntity
+  //     ).name,
+  //   ).to.be.a('string')
+  //   expect(
+  //     (new EntityFactory()).fromObject(
+  //       {
+  //         name: faker.name.findName(),
+  //       },
+  //       SimpleEntity
+  //     ).name,
+  //   ).to.be.a('string')
+  // })
 })

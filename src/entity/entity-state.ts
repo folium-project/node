@@ -23,34 +23,34 @@ export interface IEntityState extends IStringAnyMap {
   code?: IEntityCode
 }
 
-export interface IEntityStateValidator {
-  validate(state: IEntityState): boolean | Promise<boolean>
-}
+// export interface IEntityStateValidator {
+//   validate(state: IEntityState): boolean | Promise<boolean>
+// }
 
-export abstract class EntityStateValidator implements IEntityStateValidator {
-  protected state: IStringAnyMap = {
-    errors: [],
-  }
+// export abstract class EntityStateValidator implements IEntityStateValidator {
+//   protected state: IStringAnyMap = {
+//     errors: [],
+//   }
 
-  public async validate(state: IEntityState): Promise<boolean> {
-    if (!state.code) {
-      this.state.errors.push('`code` has no value')
-    }
-    if (this.errors.length) {
-      return false
-    }
-    return true
-  }
+//   public async validate(state: IEntityState): Promise<boolean> {
+//     if (!state.code) {
+//       this.state.errors.push('`code` has no value')
+//     }
+//     if (this.errors.length) {
+//       return false
+//     }
+//     return true
+//   }
 
-  get errors(): string[] {
-    return this.state.errors
-  }
+//   get errors(): string[] {
+//     return this.state.errors
+//   }
 
-  protected appendError(error: string) {
-    this.state.errors.push(error)
-  }
+//   protected appendError(error: string) {
+//     this.state.errors.push(error)
+//   }
 
-  protected clearErrors() {
-    this.state.errors = []
-  }
-}
+//   protected clearErrors() {
+//     this.state.errors = []
+//   }
+// }

@@ -37,6 +37,8 @@ export abstract class Entity implements IEntity {
    */
   abstract codeGenerate(): IEntityCode
 
+  // public getValidator()
+
   public toJson(): string {
     return JSON.stringify(this.toObject())
   }
