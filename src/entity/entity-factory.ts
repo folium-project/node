@@ -1,65 +1,65 @@
-// /**
-//  * Copyright 2018 IT Media Connect
-//  *
-//  * Licensed under the Apache License, Version 2.0 (the "License");
-//  * you may not use this file except in compliance with the License.
-//  * You may obtain a copy of the License at
-//  * http://www.apache.org/licenses/LICENSE-2.0
-//  *
-//  * Unless required by applicable law or agreed to in writing, software
-//  * distributed under the License is distributed on an "AS IS" BASIS,
-//  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  * See the License for the specific language governing permissions and
-//  * limitations under the License.
-//  */
+/**
+ * Copyright 2018 IT Media Connect
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// import {IEntity} from './entity'
-// import {IStringAnyMap} from '../types'
+import {IStringAnyMap, IStringTMap} from '../types'
+import {IEntity} from './entity'
 
-// export interface IEntityFactory {
-//   fromJson<T extends IEntity>(state: string, klass?: {new (state: IStringAnyMap): T}): T
-//   fromObject<T extends IEntity>(state: IStringAnyMap, klass?: string | {new (state: IStringAnyMap): T}): T
-// }
+export type IEntityConstructor = new (state: IStringAnyMap) => IEntity
 
-// export interface EntityPrototype {
-//   (): IEntity
-// }
+export interface IStringEntityConstructorMap extends IStringTMap<IEntityConstructor> {}
 
-// export class EntityFactory implements IEntityFactory {
-//   protected static _instance?: EntityFactory
+export interface IEntityFactory {
+  fromJson(state: string, klass?: string | IEntityConstructor): IEntity
+  fromObject(state: IStringAnyMap, klass?: string | IEntityConstructor): IEntity
+}
 
-//   protected klasses: IStringAnyMap = {}
+export class EntityFactory implements IEntityFactory {
+  public static instance() {
+    if (!EntityFactory.factoryInstance) {
+      EntityFactory.factoryInstance = new EntityFactory()
+    }
+    return EntityFactory.factoryInstance
+  }
 
-//   public registerKlass<T extends IEntity>(name: string, klass: {new (state: IStringAnyMap): T}) {
-//     this.klasses[name] = klass
-//   }
+  protected static factoryInstance?: EntityFactory
 
-//   public findKlass<T extends IEntity>(name: string): {new (state: IStringAnyMap): T} {
-//     return this.klasses[name] as {new (state: IStringAnyMap): T}
-//   }
+  protected repository: IStringEntityConstructorMap = {}
 
-//   public static instance() {
-//     if (!EntityFactory._instance) {
-//       EntityFactory._instance = new EntityFactory()
-//     }
-//     return EntityFactory._instance
-//   }
+  public findKlass(name: string): IEntityConstructor {
+    if (!this.repository[name]) {
+      throw new Error(`No class '${name}' detected in repository.`)
+    }
+    return this.repository[name]
+  }
 
-//   fromJson<T extends IEntity>(state: string, klass?: {new (state: IStringAnyMap): T}): T {
-//     return this.fromObject(JSON.parse(state), klass)
-//   }
+  public fromJson(state: string, klass?: string | IEntityConstructor): IEntity {
+    return this.fromObject(JSON.parse(state), klass)
+  }
 
-//   fromObject<T extends IEntity>(state: IStringAnyMap, klass?: string | {new (state: IStringAnyMap): T}): T {
-//     if (!klass) {
-//       throw new Error('`klass` not stated')
-//     }
-//     if (typeof klass === 'string') {
-//       const klass2 = this.klasses[klass] as {new (state: IStringAnyMap): T}
-//       if (!klass2) {
-//         throw new Error(`no klass named '${klass}' found in factory registry`)
-//       }
-//       return new klass2(state)
-//     }
-//     return new klass(state)
-//   }
-// }
+  public fromObject(state: IStringAnyMap, klass?: string | IEntityConstructor): IEntity {
+    if (!klass) {
+      throw new Error('`klass` not stated')
+    }
+    if (typeof klass === 'string') {
+      const klass2 = this.repository[klass] as IEntityConstructor
+      return new klass2(state)
+    }
+    return new klass(state)
+  }
+
+  public registerKlass(name: string, klass: IEntityConstructor) {
+    this.repository[name] = klass
+  }
+}

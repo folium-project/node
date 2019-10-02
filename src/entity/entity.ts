@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import {IStringAnyMap} from '../types'
+import {IStringAnyMap, IStringTMap} from '../types'
 import {IEntityCode, IEntityState} from './entity-state'
 
 export interface IEntity {
